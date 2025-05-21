@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <style>
+        form{
+            max-width: 0px;
+            background: none;
+            padding: 2px;
+            margin-left: 0;
+            box-shadow: 0 0 0px rgba(0, 0, 0, 0.1);
+        }
+        td{
+            width: 80px;
+        }
+    </style>
+</head>
+<body>
+<article>
+    <header>
+        <nav class="clear">
+            <ul>
+                <li><a href = "/persons/new">New Person</a></li>
+            </ul>
+        </nav>
+        <h1>App for testing</h1>
+    </header>
+
+    <table>
+        <tr>
+            <td><form th:action="@{/logout}" th:method="POST">
+                <input type = "submit" value = "Logout"/>
+            </form></td>
+        </tr>
+    </table>
+
+    <ul>
+        <div class = "for-list">
+
+        </div>
+    </ul>
+
+    <ul>
+        <h1>Persons list:</h1>
+        <div class = "for-list">
+            <p th:each="person : ${person}">
+                <a th:href="@{/persInf/{id}(id=${person.getId()})}"
+                   th:text="${person.getName() + ' ' + person.getSurname()}">user</a>
+            </p>
+        </div>
+    </ul>
+
+</article>
+</body>
+</html>

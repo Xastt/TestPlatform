@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <meta charset="UTF-8">
+    <title>New Question</title>
+</head>
+<body>
+
+<article>
+
+    <header>
+        <nav class="clear">
+            <ul>
+                <li><a href="/persons">Person page</a></li>
+                <li><a href="/">Question page</a></li>
+            </ul>
+        </nav>
+        <h1>App for testing</h1>
+    </header>
+
+    <ul>
+        <h1>New question:</h1>
+
+        <form th:method="POST" th:action="@{/questions}" th:object="${question}">
+            <label for="content">Enter the content: </label>
+            <input type="text" th:field="*{content}" id="content"/>
+            <div style="color: red" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">Content Error</div>
+            <br/>
+            <input type="submit" value="Create!"/>
+        </form>
+
+    </ul>
+</article>
+
+</body>
+</html>

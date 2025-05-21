@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/styles_show.css}">
+    <meta charset="UTF-8">
+    <title>Show Person</title>
+</head>
+<body>
+
+<article>
+    <div class="content-wrapper">
+        <header>
+            <nav class="clear">
+                <ul>
+                    <li><a href="/persons">Person page</a></li>
+                    <li><a href="/">Question page</a></li>
+                </ul>
+            </nav>
+            <h1>App for Testing</h1>
+        </header>
+    </div>
+    <ul>
+        <div class="container">
+            <h1 class = "inf">Person information:</h1>
+
+            <p th:text="${'Name: ' + questions.getContent()()}">VALUE</p>
+            <p th:text="${'Surame: ' + questions.getQuestionOptions()()}">VALUE</p>
+
+            <form th:method="GET" th:action="@{/questions/{id}/edit(id=${questions.getId()})}">
+                <input class = "input-btn" type="submit" value="Edit"/>
+            </form>
+
+        </div>
+    </ul>
+</article>
+
+</body>
+</html>
