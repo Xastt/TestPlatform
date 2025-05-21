@@ -7,9 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.xast.TestPlatform.models.Options;
 import ru.xast.TestPlatform.models.Question;
 import ru.xast.TestPlatform.services.QuestionService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -49,21 +52,37 @@ public class QuestionController {
     }
 
     @GetMapping("/new")
-    public String newQuestion(@ModelAttribute("question") Question question) {
-        return "questions/new";
+    public String newQuestion(Model model) {
+        try{
+            model.addAttribute("question", new Question());
+            return "questions/new";
+        }catch (Exception e){
+            log.error("Error loading question", e);
+            return "redirect:/error/retry";
+        }
     }
 
-    @PostMapping()
-    public String create(@ModelAttribute("question") @Valid Question question, BindingResult bindingResult) {
+    @PostMapping("/create")
+    public String create(
+            @ModelAttribute("question") @Valid Question question,
+            @RequestParam("optionContent") List<String> optionContent,
+            BindingResult bindingResult) {
         try {
             if (bindingResult.hasErrors()) {
                 return "questions/new";
             }
-
+            List<Options> options = new ArrayList<>();
+            for(int i = 0; i<optionContent.size(); i++){
+                Options option = new Options();
+                option.setOption_content(optionContent.get(i));
+                options.add(option);
+            }
+            question.setQuestionOptions(options);
             questionService.save(question);
-            return "redirect:/questions";
+
+            return "redirect:/question";
         } catch (Exception e) {
-            log.error("Error creating person", e);
+            log.error("Error creating question", e);
             return "redirect:/error/retry";
         }
     }

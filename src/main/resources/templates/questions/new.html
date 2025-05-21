@@ -35,3 +35,92 @@
 
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <meta charset="UTF-8">
+    <title>New Question</title>
+    <script>
+        function addOptionField() {
+            const optionFields = document.getElementById("option-fields");
+            const optionIndex = optionFields.children.length;
+
+            const newOptionField = document.createElement("div");
+            newOptionField.innerHTML = `
+                <h3>Option ${optionIndex + 1}</h3>
+                <label for="option_content_${optionIndex}">Enter the option content:</label>
+                <input type="text" name="optionContent" id="option_content_${optionIndex}" required>
+                <br>
+                <!--<label for="product_type_${optionIndex}">Product Type:</label>
+                <input type="text" name="productTypes" id="product_type_${optionIndex}" required>
+                <br>
+                <label for="product_weight_${optionIndex}">Weight (kg):</label>
+                <input type="number" step="0.01" name="productWeights" id="product_weight_${optionIndex}" required>
+                <br><br>-->
+            `;
+            optionFields.appendChild(newOptionField);
+        }
+    </script>
+</head>
+<body>
+
+<article>
+
+    <header>
+        <nav class="clear">
+            <ul>
+                <li><a href="/persons">Persons page</a></li>
+                <li><a href="/question">Question page</a></li>
+            </ul>
+        </nav>
+        <h1>Question Page</h1>
+    </header>
+
+    <ul>
+        <h1>Add new Question:</h1>
+
+        <form th:method="POST" th:action="@{/questions/create}" th:object="${deliver}">
+            <label for="supplier">Supplier: </label>
+            <select th:field="*{supplier}" id = "supplier">
+                <option th:each="supplier : ${suppliers}" th:value="${supplier.getSupplier_id()}" th:text="${supplier.getCompany_name()}"></option>
+            </select>
+            <br/>
+            <label for="delivery_date">Date of deliver:</label>
+            <input type="date" th:field="*{delivery_date}" id="delivery_date">
+            <div style="color: red" th:if="${#fields.hasErrors('delivery_date')}" th:errors="*{delivery_date}">Date Error</div>
+            <br>
+            <label for="weight">Total Weight:</label>
+            <input type="number" step="0.01" th:field="*{weight}" id="weight">
+            <div style="color: red" th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}">Weight Error</div>
+            <br>
+            <label for="pricePerKg">Price per KG(Rub):</label>
+            <input type="number" step="0.01" th:field="*{price_for_kg}" id="pricePerKg">
+            <div style="color: red" th:if="${#fields.hasErrors('price_for_kg')}" th:errors="*{price_for_kg}">Price Error</div>
+            <br>
+            <br>
+            <h2>Products:</h2>
+            <div id="product-fields">
+                <div>
+                    <h3>Product 1</h3>
+                    <label for="product_name_0">Product Name:</label>
+                    <input type="text" name="productNames" id="product_name_0" required>
+                    <br>
+                    <label for="product_type_0">Product Type:</label>
+                    <input type="text" name="productTypes" id="product_type_0" required>
+                    <br>
+                    <label for="product_weight_0">Weight (kg):</label>
+                    <input type="number" step="0.01" name="productWeights" id="product_weight_0" required>
+                    <br><br>
+                </div>
+            </div>
+
+            <button type="button" onclick="addOptionField()">Add Product</button>
+            <button type="submit">Add Deliver</button>
+        </form>
+    </ul>
+</article>
+
+</body>
+</html>
