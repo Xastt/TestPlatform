@@ -18,6 +18,7 @@ import ru.xast.TestPlatform.services.OptionsService;
 @RequestMapping("/options")
 public class OptionsController {
 
+    /*
     private final OptionsService optionsService;
 
     @Autowired
@@ -43,5 +44,5 @@ public class OptionsController {
             log.error("Error creating person", e);
             return "redirect:/error/retry";
         }
-    }
+    }*/
 }
