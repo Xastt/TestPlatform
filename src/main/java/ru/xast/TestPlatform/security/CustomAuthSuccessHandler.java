@@ -36,9 +36,9 @@ public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
         }
         Persons persInf = persInfRepository.findPersInfByUserId(user.getId());
         if(persInf != null) {
-            response.sendRedirect("/persInf");
+            response.sendRedirect("/person");
         }else{
-            response.sendRedirect("/persInf/new");
+            response.sendRedirect("/person/new");
         }
 
     }

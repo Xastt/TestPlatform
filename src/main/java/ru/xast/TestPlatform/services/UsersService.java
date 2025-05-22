@@ -15,33 +15,17 @@ import ru.xast.TestPlatform.repositories.UsersRepository;
 import ru.xast.TestPlatform.security.UsersDetails;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Slf4j
 @Service
 @Transactional
-public class UsersService extends CRUDOperationService<Users, UUID> implements UserDetailsService {
+public class UsersService implements UserDetailsService {
 
     private final UsersRepository usersRepository;
 
     @Autowired
     public UsersService(UsersRepository usersRepository) {
         this.usersRepository = usersRepository;
-    }
-
-    @Override
-    protected JpaRepository<Users, UUID> getRepository() {
-        return usersRepository;
-    }
-
-    @Override
-    protected UUID getId(Users entity) {
-        return entity.getId();
-    }
-
-    @Override
-    protected void setId(Users entity, UUID uuid) {
-        entity.setId(uuid);
     }
 
     @Override
