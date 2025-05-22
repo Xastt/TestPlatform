@@ -28,11 +28,6 @@ public class Question {
     @ManyToMany(mappedBy = "questions")
     private List<Test> tests = new ArrayList<>();
 
-    public void addOption(Options option) {
-        this.questionOptions.add(option);
-        option.setQuest(this);
-    }
-
     public Question() {}
 
     public Question(String content) {

@@ -33,9 +33,5 @@ public class Test {
 
     private LocalDateTime createdAt;
 
-    public void addQuestion(Question question) {
-        this.questions.add(question);
-        question.getTests().add(this);
-    }
 }
 

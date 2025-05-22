@@ -60,6 +60,16 @@
     </style>
 </head>
 <body>
+<article>
+    <header>
+        <nav class="clear">
+            <ul>
+                <li><a href="/persons">Person Page</a></li>
+                <li><a href="/tests">Tests Page</a></li>
+            </ul>
+        </nav>
+        <h1>Testing App</h1>
+    </header>
 <h1 th:text="${test.title}"></h1>
 
 <form th:action="@{/tests/{id}/submit(id=${test.id})}" method="post">
@@ -83,5 +93,6 @@
 
     <button type="submit" class="submit-btn">Submit Test</button>
 </form>
+</article>
 </body>
 </html>

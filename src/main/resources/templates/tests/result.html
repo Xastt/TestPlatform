@@ -3,14 +3,40 @@
 <head>
   <link rel="stylesheet" th:href="@{/css/styles.css}">
   <title>Test Result</title>
+  <style>
+    p{
+      font-size: 1.3em;
+      color: #333333;
+      line-height: 1.8;
+      text-align: left;
+      padding: 20px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+      background: #f0f0f0;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+  </style>
 </head>
 <body>
-<h1>Test Result</h1>
+<article>
+  <header>
+    <nav class="clear">
+      <ul>
+        <li><a href="/persons">Person Page</a></li>
+        <li><a href="/tests">Tests Page</a></li>
+      </ul>
+    </nav>
+    <h1>Testing App</h1>
+  </header>
+<h1>Test Result:</h1>
+  <div class = "for-list">
+    <p>Test: <span th:text="${result.test.title}"></span></p>
+    <p>Score: <span th:text="${result.score}"></span>/<span th:text="${result.maxPossibleScore}"></span></p>
+    <p>Completed at: <span th:text="${#temporals.format(result.completedAt, 'dd.MM.yyyy HH:mm')}"></span></p>
+  </div>
 
-<p>Test: <span th:text="${result.test.title}"></span></p>
-<p>Score: <span th:text="${result.score}"></span>/<span th:text="${result.maxPossibleScore}"></span></p>
-<p>Completed at: <span th:text="${#temporals.format(result.completedAt, 'dd.MM.yyyy HH:mm')}"></span></p>
-
-<a th:href="@{/tests}">Back to tests list</a>
+</article>
 </body>
 </html>

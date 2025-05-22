@@ -22,28 +22,30 @@
     <header>
         <nav class="clear">
             <ul>
-                <li><a href="/persons">Persons Page</a></li>
-                <li><a href="/question">Questions page</a></li>
+                <li><a>Go Back To -></a></li>
+                <li><a href="/persons">Person Page</a></li>
+                <li><a href="/tests">Tests Page</a></li>
             </ul>
         </nav>
-        <h1>Testing App</h1>
+        <h1>SkillSwap</h1>
     </header>
 
-    <table>
-        <tr>
-            <td><form th:action="@{/logout}" th:method="POST">
-                <input type = "submit" value = "Logout"/>
-            </form></td>
-        </tr>
-    </table>
-
     <ul>
-        <h1>Questions list:</h1>
+        <h1>Error!</h1>
         <div class = "for-list">
-            <p th:each="question : ${question}">
-                <a th:href="@{/question/{id}(id=${question.getId()})}"
-                   th:text="${question.getContent() }">question</a>
-            </p>
+            <p style="
+        font-size: 1.3em;
+        color: #333333;
+        line-height: 1.8;
+        text-align: left;
+        padding: 20px;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-weight: 300;
+        letter-spacing: 0.5px;
+        background: #f0f0f0;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    ">Something went wrong! Please try again.</p>
         </div>
     </ul>
 

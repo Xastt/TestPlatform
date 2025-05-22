@@ -9,8 +9,7 @@
     <header>
         <nav class="clear">
             <ul>
-                <li><a href = "/question/new">New Question</a></li>
-                <li><a href = "/question">Question Page</a></li>
+                <li><a href="/persons">Person Page</a></li>
                 <li><a th:href="@{/tests/create}">Create New Test</a></li>
             </ul>
         </nav>
@@ -18,7 +17,7 @@
     </header>
 
     <ul>
-        <h1>All Tests</h1>
+        <h1>All Tests:</h1>
         <div class = "for-list">
         <p th:each="test : ${tests}">
             <a th:href="@{/tests/{id}/take(id=${test.id})}" th:text="${test.title}"></a>
