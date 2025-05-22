@@ -22,10 +22,11 @@
     <header>
         <nav class="clear">
             <ul>
-                <li><a href = "/persons/new">New Person</a></li>
+                <li><a href="/persons">Persons Page</a></li>
+                <li><a href="/question">Questions page</a></li>
             </ul>
         </nav>
-        <h1>App for testing</h1>
+        <h1>Testing App</h1>
     </header>
 
     <table>
@@ -37,17 +38,11 @@
     </table>
 
     <ul>
-        <div class = "for-list">
-
-        </div>
-    </ul>
-
-    <ul>
-        <h1>Persons list:</h1>
+        <h1>Questions list:</h1>
         <div class = "for-list">
             <p th:each="question : ${question}">
-                <a th:href="@{/persInf/{id}(id=${question.getId()})}"
-                   th:text="${question.getContent() + ' ' + question.getQuestionOptions()}">user</a>
+                <a th:href="@{/question/{id}(id=${question.getId()})}"
+                   th:text="${question.getContent() }">question</a>
             </p>
         </div>
     </ul>

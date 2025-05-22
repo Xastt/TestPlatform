@@ -12,24 +12,23 @@
         <header>
             <nav class="clear">
                 <ul>
-                    <li><a href="/persons">Person page</a></li>
-                    <li><a href="/">Question page</a></li>
+                    <li><a href="/persons">Persons page</a></li>
+                    <li><a href="/question">Questions page</a></li>
                 </ul>
             </nav>
-            <h1>App for Testing</h1>
+            <h1>Testing App</h1>
         </header>
     </div>
     <ul>
         <div class="container">
-            <h1 class = "inf">Person information:</h1>
+            <h1 class = "inf">Question information:</h1>
 
-            <p th:text="${'Name: ' + questions.getContent()()}">VALUE</p>
-            <p th:text="${'Surame: ' + questions.getQuestionOptions()()}">VALUE</p>
+            <p th:text="${'Question: ' + questions.content}"></p>
 
-            <form th:method="GET" th:action="@{/questions/{id}/edit(id=${questions.getId()})}">
-                <input class = "input-btn" type="submit" value="Edit"/>
-            </form>
-
+            <h3>Options:</h3>
+            <ul th:each="option : ${questions.questionOptions}">
+                <li th:text="${option.option_content}"></li>
+            </ul>
         </div>
     </ul>
 </article>
