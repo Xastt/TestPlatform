@@ -25,6 +25,14 @@ public class Question {
     @OneToMany(mappedBy = "quest", cascade = CascadeType.ALL)
     private List<Options> questionOptions = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "questions")
+    private List<Test> tests = new ArrayList<>();
+
+    public void addOption(Options option) {
+        this.questionOptions.add(option);
+        option.setQuest(this);
+    }
+
     public Question() {}
 
     public Question(String content) {

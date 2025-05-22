@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <title>Test Result</title>
+</head>
+<body>
+<h1>Test Result</h1>
+
+<p>Test: <span th:text="${result.test.title}"></span></p>
+<p>Score: <span th:text="${result.score}"></span>/<span th:text="${result.maxPossibleScore}"></span></p>
+<p>Completed at: <span th:text="${#temporals.format(result.completedAt, 'dd.MM.yyyy HH:mm')}"></span></p>
+
+<a th:href="@{/tests}">Back to tests list</a>
+</body>
+</html>

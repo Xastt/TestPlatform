@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <title>Create Test</title>
+    <script>
+        let questionCount = 0;
+        let optionCounts = [0];
+
+        function addQuestion() {
+            questionCount++;
+            optionCounts.push(0);
+
+            const questionsDiv = document.getElementById('questions');
+            const newQuestionDiv = document.createElement('div');
+            newQuestionDiv.className = 'question';
+            newQuestionDiv.innerHTML = `
+                <h3>Question ${questionCount}</h3>
+                <label>Question Text:</label>
+                <input type="text" name="questions[${questionCount - 1}].content" required>
+
+                <div class="options" id="options-${questionCount - 1}"></div>
+
+                <button type="button" onclick="addOption(${questionCount - 1})">Add Option</button>
+                <button type="button" onclick="removeQuestion(this)">Remove Question</button>
+            `;
+            questionsDiv.appendChild(newQuestionDiv);
+            addOption(questionCount - 1); // Добавляем первый вариант по умолчанию
+        }
+
+        function addOption(questionIndex) {
+            const optionCount = optionCounts[questionIndex]++;
+            const optionsDiv = document.getElementById(`options-${questionIndex}`);
+
+            const newOptionDiv = document.createElement('div');
+            newOptionDiv.className = 'option';
+            newOptionDiv.innerHTML = `
+                <label>Option ${optionCount + 1}:</label>
+                <input type="text"
+                       name="questions[${questionIndex}].options[${optionCount}].content"
+                       required>
+
+                <div class="correct-option">
+                    <input type="checkbox"
+                           name="questions[${questionIndex}].options[${optionCount}].isCorrect"
+                           id="correct-${questionIndex}-${optionCount}">
+                    <label for="correct-${questionIndex}-${optionCount}">Correct answer</label>
+                </div>
+
+                <button type="button" onclick="this.parentNode.remove()">Remove</button>
+            `;
+            optionsDiv.appendChild(newOptionDiv);
+        }
+
+        function removeQuestion(button) {
+            const questionDiv = button.closest('.question');
+            const questionIndex = Array.from(questionDiv.parentNode.children).indexOf(questionDiv);
+
+            questionDiv.remove();
+            optionCounts.splice(questionIndex, 1);
+            questionCount--;
+
+            // Обновляем нумерацию вопросов
+            document.querySelectorAll('#questions .question h3').forEach((header, index) => {
+                header.textContent = `Question ${index + 1}`;
+            });
+        }
+    </script>
+</head>
+<body>
+<article>
+    <header>
+        <nav class="clear">
+            <ul>
+                <li><a href="/question/new">New Question</a></li>
+                <li><a href="/question">Question Page</a></li>
+            </ul>
+        </nav>
+        <h1>Testing App</h1>
+    </header>
+    <h1>Create New Test</h1>
+    <form th:action="@{/tests/create}" th:object="${test}" method="post">
+        <div class="form-group">
+        <label for="testTitle">Test Title:</label>
+        <input type="text" id="testTitle" th:field="*{title}" required>
+        </div>
+
+        <div id="questions"></div>
+
+        <button type="button" onclick="addQuestion()">Add Question</button>
+        <button type="submit">Create Test</button>
+    </form>
+</article>
+
+<script>
+    // Добавляем первый вопрос при загрузке страницы
+    document.addEventListener('DOMContentLoaded', function() {
+        addQuestion();
+    });
+</script>
+
+</body>
+</html>

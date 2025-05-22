@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <title>Take Test</title>
+    <style>
+        .question-container {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .question-text {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .options-list {
+            margin-left: 15px;
+        }
+        .option-item {
+            margin: 8px 0;
+            padding: 10px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        .option-item:hover {
+            background-color: #f0f8ff;
+            border-color: #b3d7ff;
+        }
+        .option-checkbox {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+        .option-label {
+            cursor: pointer;
+            font-size: 16px;
+            vertical-align: middle;
+        }
+        .submit-btn {
+            display: block;
+            margin: 30px auto 0;
+            padding: 12px 25px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .submit-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+<h1 th:text="${test.title}"></h1>
+
+<form th:action="@{/tests/{id}/submit(id=${test.id})}" method="post">
+    <div th:each="question, iterStat : ${test.questions}" class="question-container">
+        <div class="question-text" th:text="${iterStat.count + '. ' + question.content}">Question text</div>
+
+        <div class="options-list">
+            <div th:each="option, oStat : ${question.getQuestionOptions()}" class="option-item">
+                <input type="checkbox"
+                       class="option-checkbox"
+                       th:id="${'q_' + question.id + '_opt_' + option.id}"
+                       th:name="${'question_' + question.id}"
+                       th:value="${option.id}">
+                <label class="option-label"
+                       th:for="${'q_' + question.id + '_opt_' + option.id}"
+                       th:text="${option.getOption_content()}">Option text</label>
+            </div>
+        </div>
+
+    </div>
+
+    <button type="submit" class="submit-btn">Submit Test</button>
+</form>
+</body>
+</html>

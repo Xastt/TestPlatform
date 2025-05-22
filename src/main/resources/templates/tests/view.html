@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <title>View Test</title>
+</head>
+<body>
+<article>
+    <header>
+        <nav class="clear">
+            <ul>
+                <li><a href = "/question/new">New Question</a></li>
+                <li><a href = "/question">Question Page</a></li>
+            </ul>
+        </nav>
+        <h1>Testing App</h1>
+    </header>
+
+<h1 th:text="${test.title}"></h1>
+<p>Created at: <span th:text="${#temporals.format(test.createdAt, 'dd.MM.yyyy HH:mm')}"></span></p>
+
+<div th:each="question, iterStat : ${test.questions}">
+    <h3 th:text="'Question ' + (iterStat.index + 1) + ': ' + ${question.content}"></h3>
+    <ul>
+        <li th:each="option : ${question.getQuestionOptions()}" th:text="${option.getOption_content()}"></li>
+    </ul>
+</div>
+
+<a th:href="@{/tests}">Back to list</a>
+</article>
+</body>
+</html>

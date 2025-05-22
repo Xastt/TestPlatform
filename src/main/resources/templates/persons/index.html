@@ -47,7 +47,7 @@
         <h1>Persons list:</h1>
         <div class = "for-list">
             <p th:each="person : ${person}">
-                <a th:href="@{/persInf/{id}(id=${person.getId()})}"
+                <a th:href="@{/persons/{id}(id=${person.getId()})}"
                    th:text="${person.getName() + ' ' + person.getSurname()}">user</a>
             </p>
         </div>

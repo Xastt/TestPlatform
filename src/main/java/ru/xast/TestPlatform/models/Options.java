@@ -27,6 +27,9 @@ public class Options {
     @Size(min = 2, max = 1000, message = "Your option content should be between 2 and 1000!")
     private String option_content;
 
+    @Column(name = "is_correct")
+    private Boolean isCorrect = false;
+
     public Options() {}
 
     public Options(String option_content) {

@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -20,6 +22,9 @@ public class Persons {
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
     private Users user;
+
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
+    private List<TestResult> testResults = new ArrayList<>();
 
     @Column(name = "surname")
     @NotEmpty(message = "Enter your surname!")
