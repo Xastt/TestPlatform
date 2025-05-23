@@ -32,7 +32,7 @@ public class PersonsController {
             model.addAttribute("person", personsService.findAll());
             return "persons/index";
         } catch (Exception e) {
-            log.error("Error loading persInf index page", e);
+            log.error("Error loading person index page", e);
             return "redirect:/error/retry";
         }
     }
@@ -51,7 +51,7 @@ public class PersonsController {
             model.addAttribute("person", existingPersInf);
             return "persons/show";
         } catch (Exception e) {
-            log.error("Error loading persInf with id: {}", id, e);
+            log.error("Error loading person with id: {}", id, e);
             return "redirect:/error/retry";
         }
     }
