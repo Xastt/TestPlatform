@@ -1,0 +1,75 @@
+@startuml
+
+entity users {
+  * id : UUID <<generated>>
+  --
+  * username : VARCHAR(100)
+  * password : VARCHAR(255)
+  * role : VARCHAR(50)
+}
+
+entity persons {
+  * id : UUID <<generated>>
+  --
+  * user_id : UUID
+  * surname : VARCHAR(60)
+  * name : VARCHAR(60)
+  * patronymic : VARCHAR(60)
+  * phonenumber : VARCHAR(20)
+  * email : VARCHAR(255)
+}
+
+entity question {
+  * id : UUID <<generated>>
+  --
+  * content : VARCHAR(1000)
+}
+
+entity options {
+  * id : UUID <<generated>>
+  --
+  * question_id : UUID
+  * option_content : VARCHAR(1000)
+  * is_correct : BOOLEAN
+}
+
+entity tests {
+  * id : UUID <<generated>>
+  --
+  * title : VARCHAR(255)
+  * created_at : TIMESTAMP
+}
+
+entity test_questions {
+  * test_id : UUID
+  * question_id : UUID
+}
+
+entity test_results {
+  * id : UUID <<generated>>
+  --
+  * person_id : UUID
+  * test_id : UUID
+  * score : INTEGER
+  * max_possible_score : INTEGER
+  * completed_at : TIMESTAMP
+}
+
+users ||-o{ persons : "1:1"
+persons }o--|| test_results : "1:N"
+
+question ||-o{ options : "1:N"
+question }o--|| test_questions : "N:M"
+tests }o--|| test_questions : "N:M"
+
+tests }o--|| test_results : "1:N"
+
+users : idx_users_username
+persons : idx_persons_user_id
+persons : idx_persons_email
+options : idx_options_question_id
+test_questions : idx_testquestions_test_id
+test_questions : idx_testquestions_question_id
+test_results : idx_test_results_person_id
+test_results : idx_test_results_test_id
+@enduml
